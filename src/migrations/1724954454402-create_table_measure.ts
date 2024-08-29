@@ -5,6 +5,7 @@ export class CreateTableMeasure1724954454402 implements MigrationInterface {
     queryRunner.query(`
         CREATE TABLE measure (
             id serial  NOT NULL,
+            created_at timestamp  NOT NULL,
             type varchar(255)  NOT NULL,
             value decimal(10,2)  NOT NULL,
             image_url int  NOT NULL,
