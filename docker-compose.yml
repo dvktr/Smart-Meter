@@ -13,5 +13,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  nestjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:5000"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+
 volumes:
   postgres_data:
