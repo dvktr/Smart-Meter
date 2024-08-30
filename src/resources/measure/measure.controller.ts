@@ -12,7 +12,7 @@ import { MeasureService } from './measure.service';
 import { UploadMeasureRequestDTO } from './dto/upload-measure.dto';
 import { ConfirmMeasureRequestDTO } from './dto/confirm-measure.dto';
 
-@Controller('measure')
+@Controller('')
 export class MeasureController {
   constructor(private readonly measureService: MeasureService) {}
 
