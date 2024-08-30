@@ -1,34 +1,54 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Post,
+  Patch,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Query,
+  BadRequestException,
+} from '@nestjs/common';
 import { MeasureService } from './measure.service';
-import { CreateMeasureDto } from './dto/create-measure.dto';
-import { UpdateMeasureDto } from './dto/update-measure.dto';
+import { UploadMeasureRequestDTO } from './dto/upload-measure.dto';
+import { ConfirmMeasureRequestDTO } from './dto/confirm-measure.dto';
 
 @Controller('measure')
 export class MeasureController {
   constructor(private readonly measureService: MeasureService) {}
 
   @Post()
-  create(@Body() createMeasureDto: CreateMeasureDto) {
+  create(@Body() createMeasureDto: UploadMeasureRequestDTO) {
     return this.measureService.create(createMeasureDto);
   }
 
-  @Get()
-  findAll() {
-    return this.measureService.findAll();
+  @Patch()
+  confirm(@Body() confirmMeasureDto: ConfirmMeasureRequestDTO) {
+    return this.measureService.confirm(confirmMeasureDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.measureService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMeasureDto: UpdateMeasureDto) {
-    return this.measureService.update(+id, updateMeasureDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.measureService.remove(+id);
+  @Get(':uuid/list')
+  findAll(
+    @Param('uuid') uuid: string,
+    @Query('measure_type') measureType: string,
+    @Query('orderBy') orderBy: string,
+    @Query('orderDirection') orderDirection: 'ASC' | 'DESC',
+  ) {
+    const validMeasureTypes = ['WATER', 'GAS'];
+    const normalizedMeasureType = measureType?.toUpperCase();
+    if (
+      normalizedMeasureType &&
+      !validMeasureTypes.includes(normalizedMeasureType)
+    ) {
+      throw new BadRequestException({
+        customMessage: 'INVALID_TYPE',
+        customError: 'Tipo de medição não permitida',
+      });
+    }
+    return this.measureService.list(
+      uuid,
+      normalizedMeasureType,
+      orderBy,
+      orderDirection,
+    );
   }
 }
