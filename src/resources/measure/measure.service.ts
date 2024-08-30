@@ -64,12 +64,10 @@ export class MeasureService {
         );
       }
 
-      // const { imageUri, result } = await this.generativeAiService.exec({
-      //   image: uploadMeasureDto.image,
-      //   type: uploadMeasureDto.measureType,
-      // });
-      const result = 28.88;
-      const imageUri = 'teste';
+      const { imageUri, result } = await this.generativeAiService.exec({
+        image: uploadMeasureDto.image,
+        type: uploadMeasureDto.measure_type,
+      });
 
       const measure = this.measuresRepository.create({
         customer,
