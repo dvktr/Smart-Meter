@@ -11,10 +11,10 @@ export type MeasureType = 'WATER' | 'GAS';
 
 @Entity()
 export class Measure {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ name: 'created_at', type: 'timestamp' })
+  @Column({ name: 'created_at', type: 'date' })
   createdAt: Date;
 
   @Column()
