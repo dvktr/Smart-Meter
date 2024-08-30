@@ -16,12 +16,12 @@ import { ConfirmMeasureRequestDTO } from './dto/confirm-measure.dto';
 export class MeasureController {
   constructor(private readonly measureService: MeasureService) {}
 
-  @Post()
+  @Post('upload')
   create(@Body() createMeasureDto: UploadMeasureRequestDTO) {
     return this.measureService.create(createMeasureDto);
   }
 
-  @Patch()
+  @Patch('confirm')
   confirm(@Body() confirmMeasureDto: ConfirmMeasureRequestDTO) {
     return this.measureService.confirm(confirmMeasureDto);
   }
