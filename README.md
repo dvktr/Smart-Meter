@@ -105,6 +105,11 @@
 [Smart Meter.postman_collection.json](https://github.com/user-attachments/files/16823088/Smart.Meter.postman_collection.json)
 
 
+0. **Documentação API**
+
+   - **GET** `/api`
+   - Vai para uma página gerada pelo Swagger com a documentação da API.
+
 1. **Upload de Leitura**
 
    - **POST** `/upload`
