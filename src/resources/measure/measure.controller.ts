@@ -11,7 +11,9 @@ import {
 import { MeasureService } from './measure.service';
 import { UploadMeasureRequestDTO } from './dto/upload-measure.dto';
 import { ConfirmMeasureRequestDTO } from './dto/confirm-measure.dto';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Measure')
 @Controller('')
 export class MeasureController {
   constructor(private readonly measureService: MeasureService) {}
@@ -26,6 +28,19 @@ export class MeasureController {
     return this.measureService.confirm(confirmMeasureDto);
   }
 
+  @ApiQuery({
+    name: 'measure_type',
+    required: false,
+    enum: ['WATER', 'GAS'],
+    example: 'WATER',
+  })
+  @ApiQuery({ name: 'orderBy', required: false })
+  @ApiQuery({
+    name: 'orderDirection',
+    required: false,
+    enum: ['ASC', 'DESC'],
+    example: 'ASC',
+  })
   @Get(':uuid/list')
   findAll(
     @Param('uuid') uuid: string,
