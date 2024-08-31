@@ -102,7 +102,7 @@
 ```
 
 ## Também para facilitar, aqui está uma collection do postman:
-
+[Smart Meter.postman_collection.json](https://github.com/user-attachments/files/16823088/Smart.Meter.postman_collection.json)
 
 
 1. **Upload de Leitura**
